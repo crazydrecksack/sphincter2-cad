@@ -12,12 +12,12 @@ z_r_kopf        = (17)/2+0.2; // Radius Kopf
 z_r_koerper     = 5+0.1;      // Radius Körper
 z_korr_loecher  = 0.4;        // Y-Korrektur Bohrlöcher
 
-p_breite        = 70;         // Breite Grundplatte
+p_breite        = 60;         // Breite Grundplatte
 p_laenge        = 125;        // Länge Grundplatte
 p_hoehe         = 5;          // Höhe Grundplatte
 p_radius        = 5;          // Radius Eckenrundung
 
-l_hoehe         = 15.1;       // Hoehe des Lagers
+l_hoehe         = 15.2;       // Hoehe des Lagers
 l_radius        = 27 - 0.2;   // Radius des Lagers
 l_res           = 100;        // Auflösung Lager
 
@@ -38,7 +38,7 @@ cut = true;    // Schnitt durchs Modell
 
 // wie bevel_gear_pair() aus der lib mit eigenen Anpassungen
 module custom_bevel_gear_pair (
-        gear1_teeth = 50,
+        gear1_teeth = 47,
         gear2_teeth = 17,
         axis_angle = 90,
         outside_circular_pitch=250,
@@ -70,7 +70,7 @@ module custom_bevel_gear_pair (
         {
             if(gr==0||gr==1){
                 translate([0,0,-pitch_apex1])
-                    #bevel_gear (
+                    bevel_gear (
                             face_width=12,
                             gear_thickness = 8.2,
                             number_of_teeth=gear1_teeth,
@@ -116,9 +116,9 @@ module zahnrad(groesse=3) {
                                 custom_bevel_gear_pair (gr=groesse);
                             if(groesse==0||groesse==1){
                                 translate([0,0,12])
-                                    cylinder(r=27,h=10,$fn=l_res);
+                                    cylinder(r=23,h=10,$fn=l_res);
                                 translate([0,0,22])
-                                    cylinder(r1=27,r2=23,h=7,$fn=l_res);
+                                    cylinder(r1=23,r2=20,h=7,$fn=l_res);
                             }
                         }
 
