@@ -355,6 +355,7 @@ module platte(){
 }
 
 difference(){
+    //intersection(){
     union(){
         if(generator==0||generator==3){
             translate([-21,-99,5])motor();
@@ -362,24 +363,13 @@ difference(){
                 union(){
                     translate([0,-22,0])platte();
                     lager();
-                    if(generator!=3)halteplatte();
+                    //if(generator!=3)halteplatte();
                 }
                 zylinder();
                 halteplatten_loecher();
             }
         }
-        if(generator==4){
-            translate([0,-5.1,-16.2])
-                difference(){
-                    union(){
-                        halteplatte();
-                    }
-                    zylinder();
-                    halteplatten_loecher();
-                }
-        }
-        // Rotate to see if screw holes fit
-        //rotate([0,0,90-42.51])
+        
         zahnrad(groesse=generator);
     }
     if(cut) cube([100,100,100]);
