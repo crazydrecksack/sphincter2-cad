@@ -17,7 +17,7 @@ p_laenge        = 125;        // Länge Grundplatte
 p_hoehe         = 5;          // Höhe Grundplatte
 p_radius        = 5;          // Radius Eckenrundung
 
-l_hoehe         = 15.2;       // Hoehe des Lagers
+l_hoehe         = 10.2;       // Hoehe des Lagers
 l_radius        = 27 - 0.2;   // Radius des Lagers
 l_res           = 100;        // Auflösung Lager
 
@@ -26,14 +26,14 @@ m_langloch      = 3;          // Länge des Motorlanglochs
 schluesseldicke = 2.5;        // Dicke des Schlüssels
 
 
-generator = 0;  // Welches Teil soll generiert werden?
+generator = 1;  // Welches Teil soll generiert werden?
 // 0: Alles
 // 1: großes Zahnrad
 // 2: kleines Zahnrad
 // 3: Grundplatte
 // 4: Halteplatte
 
-cut = true;    // Schnitt durchs Modell
+cut = false;    // Schnitt durchs Modell
 
 
 // wie bevel_gear_pair() aus der lib mit eigenen Anpassungen
@@ -122,12 +122,13 @@ module zahnrad(groesse=3) {
                             }
                         }
 
+                        // Stanz-Zylinder innen
                         union(){
                             h_nut = 6 - 0.3;
                             translate([0,0,p_hoehe-0.1])
                                 cylinder(
                                         r=l_radius+0.15+0.2,
-                                        h=l_hoehe-p_hoehe-h_nut+2+0.1,
+                                        h=l_hoehe-p_hoehe+2+0.1,
                                         $fn=l_res);
 
                             // innere Nut für Halteplatte
