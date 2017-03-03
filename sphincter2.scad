@@ -17,7 +17,7 @@ p_laenge        = 125;        // Länge Grundplatte
 p_hoehe         = 5;          // Höhe Grundplatte
 p_radius        = 5;          // Radius Eckenrundung
 
-l_hoehe         = 20.1;       // Hoehe des Lagers
+l_hoehe         = 15.1;       // Hoehe des Lagers
 l_radius        = 27 - 0.2;   // Radius des Lagers
 l_res           = 100;        // Auflösung Lager
 
@@ -33,12 +33,12 @@ generator = 0;  // Welches Teil soll generiert werden?
 // 3: Grundplatte
 // 4: Halteplatte
 
-cut = false;    // Schnitt durchs Modell
+cut = true;    // Schnitt durchs Modell
 
 
 // wie bevel_gear_pair() aus der lib mit eigenen Anpassungen
 module custom_bevel_gear_pair (
-        gear1_teeth = 59,
+        gear1_teeth = 50,
         gear2_teeth = 17,
         axis_angle = 90,
         outside_circular_pitch=250,
@@ -70,7 +70,7 @@ module custom_bevel_gear_pair (
         {
             if(gr==0||gr==1){
                 translate([0,0,-pitch_apex1])
-                    bevel_gear (
+                    #bevel_gear (
                             face_width=12,
                             gear_thickness = 8.2,
                             number_of_teeth=gear1_teeth,
@@ -116,9 +116,9 @@ module zahnrad(groesse=3) {
                                 custom_bevel_gear_pair (gr=groesse);
                             if(groesse==0||groesse==1){
                                 translate([0,0,12])
-                                    cylinder(r=31,h=10,$fn=l_res);
+                                    cylinder(r=27,h=10,$fn=l_res);
                                 translate([0,0,22])
-                                    cylinder(r1=31,r2=23,h=7,$fn=l_res);
+                                    cylinder(r1=27,r2=23,h=7,$fn=l_res);
                             }
                         }
 
@@ -131,8 +131,8 @@ module zahnrad(groesse=3) {
                                         $fn=l_res);
 
                             // innere Nut für Halteplatte
-                            translate([0,0,16.2-0])
-                                cylinder(r1=29+0.3,r2=27.5,h=h_nut,$fn=l_res);
+                            //translate([0,0,16.2-0])
+                            //    cylinder(r1=29+0.3,r2=27.5,h=h_nut,$fn=l_res);
                         }
                     }
 
@@ -140,8 +140,8 @@ module zahnrad(groesse=3) {
                     if(groesse==0||groesse==1){
                         //translate([0,0,15.3])cube([4,38,20],center=true);
                         hull() {
-                            translate([0,16.3,5.3+0.3])cylinder(r=2.4,h=20);
-                            translate([0,-16.3,5.3+0.3])cylinder(r=2.4,h=20);
+                            translate([0,13.3,5.3+0.3])cylinder(r=2.4,h=20);
+                            translate([0,-13.3,5.3+0.3])cylinder(r=2.4,h=20);
                         }
                         translate([0,0,5.3])cube([20,40,0.6],center=true);
                     }
@@ -153,13 +153,8 @@ module zahnrad(groesse=3) {
                     translate([0,-16.3,0])
                         cylinder(r=schluesseldicke/2,h=40,$fn=10);
                 }
-                // Löcher für Schraubendreher
-                translate([0,16.3,0])
-                    cylinder(r=2,h=40,$fn=10);
-                translate([0,-16.3,0])
-                    cylinder(r=2,h=40,$fn=10);
             }
-
+        
             // Zahn-cut
             difference(){
                 cylinder(r=50,h=20);
@@ -283,7 +278,7 @@ module lager(){
         }
 
         // Aussparung für Halteplatte
-        translate([-20,5,16.2])cube([40,30,5]);
+        //translate([-20,5,16.2])cube([40,30,5]);
 
     }
 }
